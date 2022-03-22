@@ -11,8 +11,7 @@ createInertiaApp({
     resolve: (name) => require(`./Pages/${name}.vue`),
     setup({ el, app, props, plugin }) {
         return createApp({ render: () => h(app, props) })
-            .use(plugin)
-            .component('InertiaLink', Link)
+           
             .mixin({ methods: { route } })
             .mount(el);
     },
