@@ -9,6 +9,7 @@ use Illuminate\Support\ServiceProvider;
 use Illuminate\Routing\UrlGenerator;
 
 
+
 class AppServiceProvider extends ServiceProvider
 {
     /**
@@ -35,7 +36,7 @@ class AppServiceProvider extends ServiceProvider
         }
 
         Inertia::share('flash', function(){
-            return['status'=> Session::get('status')];
+            return ['status' => Session::get('status')];
         });
     }
 }
