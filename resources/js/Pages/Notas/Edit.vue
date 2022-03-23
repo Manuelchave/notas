@@ -22,6 +22,21 @@
                             ></textarea>
 
                             <label class="block font-medium text-sm text-gray-700">
+	                            Categoría
+                            </label>
+
+                            <select 
+                                class="form-input w-full rounded-md shadow-sm"
+                                v-model="form.categoria"
+                                required
+                             >
+                                <option value="">Seleccionar</option>
+                                <option value="Alta">Alta</option>
+                                <option value="Media">Media</option>
+                                <option value="Baja">Baja</option>
+                            </select>
+
+                            <label class="block font-medium text-sm text-gray-700">
                                 Contenido
                             </label>
 
@@ -32,8 +47,8 @@
                             ></textarea>
                          </div>
                           <div class="flex items-center justify-end px-4 py-3 bg-gray-50 text-right sm:px-6">
-                            <button @click.prevent="update" 
-                                 class="bg-gray-800 hover:bg-gray-800  text-white font-bold py-2 px-4 rounded-md"
+                            <button
+                                class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-md"
                             >Aceptar</button>
                             <button @click.prevent="destroy" class="float-right bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-md">Eliminar</button>
                           </div>
@@ -50,7 +65,6 @@
 <script>
     import { defineComponent } from 'vue'
     import AppLayout from '@/Layouts/AppLayout.vue'
-
     export default defineComponent({
         components: {
             AppLayout,
@@ -74,9 +88,7 @@
                 if(confirm('¿Esta seguro que desesa eliminar esta nota?')){
                     this.$inertia.delete(this.route('nota.destroy', this.nota.id))
                 }
-
             },
         }
-
     })
 </script>

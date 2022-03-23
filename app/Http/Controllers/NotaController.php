@@ -45,12 +45,14 @@ class NotaController extends Controller
         $request->validate([
             'titulo' => 'required',
             'contenido' => 'required',
+            'categoria' => 'required',
         ]);
       
 
          $nota = New Nota;
          $nota->titulo = $request->titulo;
          $nota->contenido = $request->contenido;
+         $nota->categoria = $request->categoria;
          $nota->users_id = Auth::id(); 
          $nota->save();
   
@@ -101,6 +103,8 @@ class NotaController extends Controller
         $request->validate([
             'titulo' => 'required',
             'contenido' => 'required',
+            'categoria' => 'required',
+            
           ]);
   
           $nota =  Nota::findOrFail($id)

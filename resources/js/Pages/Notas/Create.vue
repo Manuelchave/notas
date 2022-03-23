@@ -18,7 +18,22 @@
                         <textarea 
                             class="form-input w-full rounded-md shadow-sm"
                             v-model="form.titulo"
+                            required
                         ></textarea>
+                        
+                        <label class="block font-medium text-sm text-gray-700">
+	                        Categoría
+                        </label>
+
+                        <select class="form-input w-full rounded-md shadow-sm"
+                                v-model="form.categoria"    
+                                required                    
+                        >
+                            <option value="">Seleccionar</option>
+                            <option value="Alta">Alta</option>
+                            <option value="Media">Media</option>
+                            <option value="Baja">Baja</option>
+                        </select>
 
                         <label class="block font-medium text-sm text-gray-700">
 	                        Contenido
@@ -28,6 +43,7 @@
                             class="form-input w-full rounded-md shadow-sm"
                             v-model="form.contenido"
                             rows="8"
+                             required
                         ></textarea>
 
                         <button 
@@ -53,7 +69,8 @@
             return {
                 form: {
                     titulo: '',
-                    contenido: ''
+                    contenido: '',
+                    categoria: ''
                 }
             }
         },

@@ -25,9 +25,14 @@
                         
                             <p>{{ nota.titulo }}</p>
 
+                            <b>Categoría</b>
+                            <p>{{ nota.categoria }}</p>
+                            </div>
+
                             <b>Contenido</b>
                             <p>{{ nota.contenido }}</p>
-                            </div>
+
+                            
                             
                         </div>
                     </div>
