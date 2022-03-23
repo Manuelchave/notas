@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use Inertia\Inertia;
 use App\Models\Nota;
 use Illuminate\Http\Request;
+use Inertia\Inertia;
 use Auth;
 
 class NotaController extends Controller
@@ -16,10 +16,11 @@ class NotaController extends Controller
      */
     public function index()
     {
-        $notas = Nota::where('users_id',Auth::id())->get();
-        return Inertia::render('Notas/Index',[
-            "notas"=> $notas
-        ]);
+       $notas = Nota::where('users_id',Auth::id())->get();
+
+       return Inertia::render('Notas/Index',[
+           'notas' => $notas
+       ]);
     }
 
     /**
@@ -29,7 +30,6 @@ class NotaController extends Controller
      */
     public function create()
     {
-     
         return Inertia::render('Notas/Create');
     }
 
@@ -41,53 +41,52 @@ class NotaController extends Controller
      */
     public function store(Request $request)
     {
-    
         $request->validate([
             'titulo' => 'required',
             'contenido' => 'required',
             'categoria' => 'required',
         ]);
-      
 
-         $nota = New Nota;
-         $nota->titulo = $request->titulo;
-         $nota->contenido = $request->contenido;
-         $nota->categoria = $request->categoria;
-         $nota->users_id = Auth::id(); 
-         $nota->save();
-  
-         return redirect()->route('nota.index')->with('status','La noticia se ha creado');
+        $nota = New Nota;
+        $nota->titulo = $request->titulo;
+        $nota->contenido = $request->contenido;
+        $nota->categoria = $request->categoria;
+        $nota->users_id = Auth::id();
+        $nota->save();
+
+        return redirect()->route('nota.index')->with('status','Se creó una nota');
+
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\nota  $nota
+     * @param  \App\Models\Nota  $nota
      * @return \Illuminate\Http\Response
      */
     public function show($id)
     {
 
-       return Inertia::render('Notas/Show',[
-        'nota'=> Nota::where('id',$id)
-        ->where('users_id',Auth::id())
-        ->first()
-    ]);
+        return Inertia::render('Notas/Show',[
+            'nota' => Nota::where('id',$id)
+                ->where('users_id',Auth::id())
+                ->first()
+        ]);
 
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\nota  $nota
+     * @param  \App\Models\Nota  $nota
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
     {
-        return Inertia::render('Notas/Edit', [
-            'nota'=> Nota::where('id',$id)
-            ->where('users_id',Auth::id())
-            ->first()
+        return Inertia::render('Notas/Edit',[
+            'nota' => Nota::where('id',$id)
+                ->where('users_id',Auth::id())
+                ->first()
         ]);
     }
 
@@ -95,40 +94,43 @@ class NotaController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\nota  $nota
+     * @param  \App\Models\Nota  $nota
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
     {
-        $request->validate([
+
+         $request->validate([
             'titulo' => 'required',
             'contenido' => 'required',
             'categoria' => 'required',
-            
-          ]);
-  
-          $nota =  Nota::findOrFail($id)
-            ->where('users_id',Auth::id())
-            ->first();
-          
-          $nota->update($request->all());
-          return redirect()->route('nota.index')->with('status','La noticia se ha actualizado');
-  
+        ]);
+
+        //select * from notas where id = $id and users_id = $Auth::id()
+
+        $nota = Nota::where('id',$id)
+                ->where('users_id',Auth::id())
+                ->first();
+
+        $nota->update($request->all());
+
+        return redirect()->route('nota.index')->with('status','La nota se actualizó correctamente');
+
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\nota  $nota
+     * @param  \App\Models\Nota  $nota
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
-        
-        $nota =  Nota::findOrFail($id)
-            ->where('users_id',Auth::id())
-            ->first();
-        $nota->delete(); 
-        return redirect('nota')->with('status','La noticia se ha eliminado');
+        $nota =  Nota::where('id',$id)
+                ->where('users_id',Auth::id())
+                ->first();
+
+        $nota->delete();
+        return redirect()->route('nota.index')->with('status','La nota se eliminó correctamente');
     }
 }
